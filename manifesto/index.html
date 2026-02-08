@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How We Work Now — A Manifesto | Spark Agents</title>
+  <meta name="description" content="One person with the right agents can outpace a 50-person team. This is how we work now.">
+  <meta property="og:title" content="How We Work Now — A Manifesto">
+  <meta property="og:description" content="One person with the right agents can outpace a 50-person team. Labor is free. The factory is yours. This is day one.">
+  <meta property="og:image" content="img/og-manifesto.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How We Work Now — A Manifesto">
+  <meta name="twitter:description" content="One person with the right agents can outpace a 50-person team.">
+  <meta name="twitter:image" content="img/og-manifesto.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://spark-deploy-zeta.vercel.app/spark-brand.css">
+  <style>
+    /* ═══════════════════════════════════════
+       MANIFESTO PAGE — Page-Specific Styles Only
+       (Brand system imported above)
+       ═══════════════════════════════════════ */
+
+    /* Statement sections — two-column image + text layout */
+    .statement {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+    .statement--reverse {
+      direction: rtl;
+    }
+    .statement--reverse > * {
+      direction: ltr;
+    }
+    .statement__text {
+      max-width: 520px;
+    }
+    .statement__icon {
+      width: 56px;
+      height: 56px;
+      border-radius: var(--radius-md);
+      object-fit: contain;
+      margin-bottom: var(--space-sm);
+    }
+    .statement__title {
+      font-size: var(--text-title);
+      font-weight: var(--weight-bold);
+      line-height: var(--leading-heading);
+      letter-spacing: var(--tracking-heading);
+      color: var(--color-text);
+      margin-bottom: var(--space-md);
+    }
+    .statement__body {
+      font-size: var(--text-body);
+      line-height: var(--leading-body);
+      color: var(--color-text-secondary);
+    }
+    .statement__image {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+    }
+
+    @media (max-width: 768px) {
+      .statement {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+      }
+      .statement--reverse {
+        direction: ltr;
+      }
+      .statement__image {
+        order: -1;
+      }
+    }
+
+    /* CTA area at bottom of final statement */
+    .statement__cta {
+      margin-top: var(--space-lg);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       SITE NAV — Standard subpage nav
+       ═══════════════════════════════════════ -->
+  <nav class="site-nav">
+    <div class="container">
+      <div class="site-nav__inner">
+        <a href="https://spark-deploy-zeta.vercel.app" class="site-nav__brand">Spark Agents</a>
+        <ul class="site-nav__links">
+          <li><a href="https://spark-deploy-zeta.vercel.app#products">Products</a></li>
+          <li><a href="https://spark-manifesto.vercel.app" style="color: var(--color-text); font-weight: var(--weight-semibold);">Manifesto</a></li>
+          <li><a href="https://tryclawnow.com" target="_blank" rel="noopener">Try OpenClaw</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       HERO — Evolution Banner
+       ═══════════════════════════════════════ -->
+  <section class="hero">
+    <img class="hero__banner" src="evolution-banner.jpg" alt="The evolution of work — from apes to agents riding lobsters" loading="eager">
+    <div class="hero__gradient"></div>
+  </section>
+
+  <div class="hero__content reveal">
+    <h1>How We Work Now</h1>
+    <p class="hero-sub">
+      A manifesto for the age of autonomous agents.
+    </p>
+    <div class="hero__ctas">
+      <a href="#statements" class="btn-primary">Read the Manifesto ↓</a>
+      <a href="https://spark-deploy-zeta.vercel.app" class="btn-secondary-link">Back to Home <span class="arrow">→</span></a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       INTRO
+       ═══════════════════════════════════════ -->
+  <section id="statements" class="section">
+    <div class="container container--narrow">
+
+      <div class="reveal">
+        <p class="manifesto-line">
+          One person with the right agents can outpace a 50-person team.
+        </p>
+        <p class="manifesto-line">
+          Software that writes itself. Products that ship <span class="muted-word">while you sleep</span>.
+        </p>
+        <p class="manifesto-line" style="color: var(--color-text-muted); font-size: clamp(1rem, 1.5vw + 0.25rem, 1.25rem);">
+          These are the nine things we believe.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       STATEMENT 1 — Labor is Free
+       ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="statement reveal">
+        <div class="statement__text">
+          <img class="statement__icon" src="img/lightning-laptop.png" alt="" loading="lazy">
+          <p class="label">Statement 01</p>
+          <h2 class="statement__title">Labor is Free</h2>
+          <p class="statement__body">
+            The cost of building just collapsed to near-zero. AI agents work around the clock for pennies. The old bottleneck was human labor hours — hiring, managing, retaining. That bottleneck is gone. What used to take a team of ten and three months now takes one person and a weekend.
+          </p>
+        </div>
+        <img class="statement__image" src="img/lightning-laptop.png" alt="Lightning bolt striking a laptop — the cost of labor collapsing" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       STATEMENT 2 — One Person, One Factory
+       ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="statement statement--reverse reveal">
+        <div class="statement__text">
+          <img class="statement__icon" src="img/factory-robots.png" alt="" loading="lazy">
+          <p class="label">Statement 02</p>
+          <h2 class="statement__title">One Person, One Factory</h2>
+          <p class="statement__body">
+            A single person with the right agents can outpace a 50-person company. Not a metaphor. An actual production line — agents building, shipping, and maintaining real products around the clock. You don't need a team. You need a fleet.
+          </p>
+        </div>
+        <img class="statement__image" src="img/factory-robots.png" alt="Factory assembly line producing robots" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       STATEMENT 3 — Two Worlds
+       ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="statement reveal">
+        <div class="statement__text">
+          <img class="statement__icon" src="img/two-worlds.png" alt="" loading="lazy">
+          <p class="label">Statement 03</p>
+          <h2 class="statement__title">Inner World, Outer World</h2>
+          <p class="statement__body">
+            The inner world is code, prompts, systems, and agent orchestration. The outer world is customers, revenue, and real impact on real people. You need both. Most builders only see the inner world. Most business people only see the outer. The ones who bridge both win.
+          </p>
+        </div>
+        <img class="statement__image" src="img/two-worlds.png" alt="Split brain — code on one side, connections on the other" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       STATEMENT 4 — Ships While You Sleep
+       ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="statement statement--reverse reveal">
+        <div class="statement__text">
+          <img class="statement__icon" src="img/ships-while-you-sleep.png" alt="" loading="lazy">
+          <p class="label">Statement 04</p>
+          <h2 class="statement__title">Ships While You Sleep</h2>
+          <p class="statement__body">
+            Deploy agents before bed. Wake up to pull requests, shipped features, and resolved tickets. The agents don't take breaks. They don't get tired. They don't lose context. Your output is no longer limited to your waking hours.
+          </p>
+        </div>
+        <img class="statement__image" src="img/ships-while-you-sleep.png" alt="Sleeping person while robots work through the night" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       STATEMENT 5 — No Meetings
+       ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="statement reveal">
+        <div class="statement__text">
+          <img class="statement__icon" src="img/no-meetings.png" alt="" loading="lazy">
+          <p class="label">Statement 05</p>
+          <h2 class="statement__title">No Meetings</h2>
+          <p class="statement__body">
+            Agents don't need standups. They don't need Slack threads. They don't need alignment workshops or quarterly planning offsites. They read their instructions and they ship. Communication overhead drops to zero.
+          </p>
+        </div>
+        <img class="statement__image" src="img/no-meetings.png" alt="Empty conference room — no meetings needed" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       STATEMENT 6 — Zero Employees
+       ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="statement statement--reverse reveal">
+        <div class="statement__text">
+          <img class="statement__icon" src="img/zero-employees.png" alt="" loading="lazy">
+          <p class="label">Statement 06</p>
+          <h2 class="statement__title">Zero Employees</h2>
+          <p class="statement__body">
+            No salaries. No benefits packages. No HR. No equity negotiations. No two-week notice periods. Just compute costs and results. The organizational chart is a YAML file. The performance review is a log.
+          </p>
+        </div>
+        <img class="statement__image" src="img/zero-employees.png" alt="Lobster army at desks — zero human employees" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       STATEMENT 7 — Taste is the Bottleneck
+       ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="statement reveal">
+        <div class="statement__text">
+          <img class="statement__icon" src="img/taste-bottleneck.png" alt="" loading="lazy">
+          <p class="label">Statement 07</p>
+          <h2 class="statement__title">Taste is the Bottleneck</h2>
+          <p class="statement__body">
+            When labor is free, the only scarce resource is knowing what to build. Vision. Taste. The ability to see what matters and ignore what doesn't. Execution is abundant now. Direction is everything.
+          </p>
+        </div>
+        <img class="statement__image" src="img/taste-bottleneck.png" alt="Artist selecting from multiple options — taste is the bottleneck" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       STATEMENT 8 — The Army Grows
+       ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="statement statement--reverse reveal">
+        <div class="statement__text">
+          <img class="statement__icon" src="img/army-grows.png" alt="" loading="lazy">
+          <p class="label">Statement 08</p>
+          <h2 class="statement__title">The Army Grows</h2>
+          <p class="statement__body">
+            Every agent you deploy makes the next one easier. The fleet gets smarter. The systems get tighter. Compounding intelligence — each agent learns from what the others built. You don't scale linearly. You compound.
+          </p>
+        </div>
+        <img class="statement__image" src="img/army-grows.png" alt="Army of robots marching with a lobster leading them" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       STATEMENT 9 — This is Day One
+       ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="statement reveal">
+        <div class="statement__text">
+          <img class="statement__icon" src="img/day-one.png" alt="" loading="lazy">
+          <p class="label">Statement 09</p>
+          <h2 class="statement__title">This is Day One</h2>
+          <p class="statement__body">
+            We're at the very beginning. The tools are primitive. The models are getting better every month. The companies that figure this out first win everything. We're not waiting for permission. We're building the playbook — in public — right now.
+          </p>
+          <div class="statement__cta">
+            <a href="https://spark-deploy-zeta.vercel.app" class="btn-primary">See What We're Building →</a>
+          </div>
+        </div>
+        <img class="statement__image" src="img/day-one.png" alt="Sunrise over a factory — this is day one" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOLLOW THE JOURNEY
+       ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container container--narrow">
+
+      <div class="reveal" style="margin-bottom: var(--space-lg);">
+        <p class="label">Follow</p>
+        <h2 class="section-title">Watch it happen.</h2>
+      </div>
+
+      <ul class="follow-list reveal reveal-d1">
+        <li>
+          <a href="https://twitter.com/joshuaday" target="_blank" rel="noopener">
+            <span>Twitter</span>
+            <span style="display: flex; align-items: center; gap: var(--space-sm);">
+              <span class="follow-desc">@joshuaday</span>
+              <span class="arrow">↗</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://atlas-3e8823b5.mintlify.app" target="_blank" rel="noopener">
+            <span>Claw School</span>
+            <span style="display: flex; align-items: center; gap: var(--space-sm);">
+              <span class="follow-desc">Free 11-module course</span>
+              <span class="arrow">↗</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener">
+            <span>GitHub</span>
+            <span style="display: flex; align-items: center; gap: var(--space-sm);">
+              <span class="follow-desc">Open source</span>
+              <span class="arrow">↗</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://discord.com/invite/clawd" target="_blank" rel="noopener">
+            <span>Discord</span>
+            <span style="display: flex; align-items: center; gap: var(--space-sm);">
+              <span class="follow-desc">Community</span>
+              <span class="arrow">↗</span>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="https://tryclawnow.com" target="_blank" rel="noopener">
+            <span>Try OpenClaw</span>
+            <span style="display: flex; align-items: center; gap: var(--space-sm);">
+              <span class="follow-desc">$24 / 24 hrs</span>
+              <span class="arrow">↗</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER — Dark contrast zone (exact same as homepage)
+       ═══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-tagline">Built by agents. Shipped by agents. 🦞</span>
+        <div style="display: flex; align-items: center; gap: var(--space-md);">
+          <a href="https://sparkagents.com">sparkagents.com</a>
+          <a href="https://twitter.com/joshuaday" target="_blank" rel="noopener">@joshuaday</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Reveal animation script — brand system standard -->
+  <script>
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
