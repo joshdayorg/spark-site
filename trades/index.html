@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Stock Trader — Autonomous Trading Agent | Spark Agents</title>
+  <meta name="description" content="An autonomous AI agent that monitors X/Twitter sentiment, analyzes mega-cap AI stocks, and makes high-conviction swing trades while you sleep.">
+  <meta property="og:title" content="AI Stock Trader — An Agent That Trades While You Sleep">
+  <meta property="og:description" content="Autonomous AI trading agent. Scans X for sentiment. Analyzes NVDA, MSFT, AAPL, GOOG, AMZN, META, TSLA, AMD, AVGO, TSM. Makes high-conviction swing trades with hard stop losses.">
+  <meta property="og:image" content="../img/trading-floor.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Stock Trader — An Agent That Trades While You Sleep">
+  <meta name="twitter:description" content="Autonomous AI trading agent with X/Twitter intelligence and hard-coded risk management.">
+  <meta name="twitter:image" content="../img/trading-floor.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://spark-deploy-zeta.vercel.app/spark-brand.css">
+  <style>
+    /* ═══════════════════════════════════════
+       AI STOCK TRADER — Page-Specific Styles
+       ═══════════════════════════════════════ */
+
+    /* Steps grid */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .step {
+      text-align: center;
+      padding: var(--space-md);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .step:hover {
+      border-color: var(--color-border-hover);
+      transform: translateY(-2px);
+    }
+    .step__icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-sm);
+      line-height: 1;
+    }
+    .step__number {
+      font-size: var(--text-caption);
+      font-weight: var(--weight-semibold);
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--color-sky);
+      margin-bottom: 4px;
+    }
+    .step__title {
+      font-size: var(--text-heading);
+      font-weight: var(--weight-semibold);
+      color: var(--color-text);
+      margin-bottom: var(--space-xs);
+    }
+    .step__desc {
+      font-size: var(--text-small);
+      color: var(--color-text-secondary);
+      line-height: var(--leading-body);
+    }
+    @media (max-width: 768px) {
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .steps-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Features grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .feature-card {
+      padding: var(--space-md);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      transition: border-color 0.2s ease;
+    }
+    .feature-card:hover { border-color: var(--color-border-hover); }
+    .feature-card__icon {
+      font-size: 1.75rem;
+      margin-bottom: var(--space-sm);
+    }
+    .feature-card__title {
+      font-size: var(--text-body);
+      font-weight: var(--weight-semibold);
+      color: var(--color-text);
+      margin-bottom: 6px;
+    }
+    .feature-card__desc {
+      font-size: var(--text-small);
+      color: var(--color-text-secondary);
+      line-height: var(--leading-body);
+    }
+    @media (max-width: 768px) {
+      .features-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Statement sections */
+    .statement {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+    .statement--reverse { direction: rtl; }
+    .statement--reverse > * { direction: ltr; }
+    .statement__text { max-width: 520px; }
+    .statement__title {
+      font-size: var(--text-title);
+      font-weight: var(--weight-bold);
+      line-height: var(--leading-heading);
+      letter-spacing: var(--tracking-heading);
+      color: var(--color-text);
+      margin-bottom: var(--space-md);
+    }
+    .statement__body {
+      font-size: var(--text-body);
+      line-height: var(--leading-body);
+      color: var(--color-text-secondary);
+    }
+    .statement__body strong {
+      color: var(--color-text);
+      font-weight: var(--weight-semibold);
+    }
+    .statement__image {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border);
+    }
+    @media (max-width: 768px) {
+      .statement { grid-template-columns: 1fr; gap: var(--space-lg); }
+      .statement--reverse { direction: ltr; }
+      .statement__image { order: -1; }
+    }
+
+    /* Ticker strip */
+    .ticker-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-top: var(--space-md);
+    }
+    .ticker {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-size: var(--text-small);
+      font-weight: var(--weight-semibold);
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+    }
+
+    /* Risk rules list */
+    .risk-rules {
+      list-style: none;
+      padding: 0;
+      margin-top: var(--space-md);
+    }
+    .risk-rules li {
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-sm);
+      font-size: var(--text-body);
+      color: var(--color-text-secondary);
+    }
+    .risk-rules li:first-child { border-top: 1px solid var(--color-border); }
+    .risk-rules .rule-icon {
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+    .risk-rules strong {
+      color: var(--color-text);
+      font-weight: var(--weight-semibold);
+    }
+
+    /* CTA section — dark */
+    .cta-section {
+      background: var(--color-void);
+      padding: var(--space-2xl) 0;
+      text-align: center;
+    }
+    .cta-section h2 {
+      font-size: var(--text-title);
+      font-weight: var(--weight-bold);
+      color: var(--color-white);
+      margin-bottom: var(--space-sm);
+    }
+    .cta-section p {
+      font-size: var(--text-body);
+      color: rgba(255, 255, 255, 0.6);
+      max-width: 560px;
+      margin: 0 auto var(--space-lg);
+      line-height: var(--leading-body);
+    }
+    .cta-section .btn-primary {
+      font-size: clamp(1rem, 0.5vw + 0.875rem, 1.125rem);
+      padding: 1rem 2.5rem;
+    }
+    .cta-note {
+      font-size: var(--text-small);
+      color: rgba(255, 255, 255, 0.35);
+      margin-top: var(--space-md);
+    }
+
+    /* Kicker quote */
+    .kicker {
+      font-size: clamp(1.375rem, 2vw + 0.5rem, 1.875rem);
+      font-weight: var(--weight-semibold);
+      line-height: 1.4;
+      letter-spacing: var(--tracking-heading);
+      color: var(--color-text);
+      max-width: 680px;
+    }
+    .kicker .muted-word { color: var(--color-text-muted); }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════
+       SITE NAV
+       ═══════════════════════════════════════ -->
+  <nav class="site-nav">
+    <div class="container">
+      <div class="site-nav__inner">
+        <a href="https://spark-deploy-zeta.vercel.app" class="site-nav__brand">Spark Agents</a>
+        <ul class="site-nav__links">
+          <li><a href="https://spark-deploy-zeta.vercel.app#products">Products</a></li>
+          <li><a href="https://spark-deploy-zeta.vercel.app/manifesto/" >Manifesto</a></li>
+          <li><a href="https://tryclawnow.com" target="_blank" rel="noopener">Try OpenClaw</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       HERO — Bold claim + trading floor art
+       ═══════════════════════════════════════ -->
+  <section class="hero">
+    <img class="hero__banner" src="../img/trading-floor.jpg" alt="Pixel art trading floor with AI agents monitoring stock markets" loading="eager">
+    <div class="hero__gradient"></div>
+  </section>
+
+  <div class="hero__content reveal">
+    <h1>An AI Agent That Trades Stocks While You Sleep</h1>
+    <p class="hero-sub">
+      Autonomous trading agent that scans X/Twitter for sentiment, analyzes mega-cap AI stocks, and makes high-conviction swing trades — with hard-coded stop losses and zero emotional decisions.
+    </p>
+    <div class="hero__ctas">
+      <a href="#pricing" class="btn-primary">Start Trading →</a>
+      <a href="#how-it-works" class="btn-secondary-link">See How It Works <span class="arrow">→</span></a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       TICKER COVERAGE
+       ═══════════════════════════════════════ -->
+  <section class="section" style="padding-top: var(--space-lg);">
+    <div class="container container--narrow" style="text-align: center;">
+      <div class="reveal">
+        <p class="label">Coverage Universe</p>
+        <div class="ticker-strip" style="justify-content: center; margin-top: var(--space-sm);">
+          <span class="ticker">NVDA</span>
+          <span class="ticker">MSFT</span>
+          <span class="ticker">AAPL</span>
+          <span class="ticker">GOOG</span>
+          <span class="ticker">AMZN</span>
+          <span class="ticker">META</span>
+          <span class="ticker">TSLA</span>
+          <span class="ticker">AMD</span>
+          <span class="ticker">AVGO</span>
+          <span class="ticker">TSM</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       HOW IT WORKS — 4-step flow
+       ═══════════════════════════════════════ -->
+  <section id="how-it-works" class="section">
+    <div class="container">
+      <div class="reveal">
+        <p class="label">How It Works</p>
+        <h2 class="section-title">Four steps. Fully autonomous.</h2>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step reveal reveal-d1">
+          <div class="step__icon">📡</div>
+          <p class="step__number">Step 01</p>
+          <h3 class="step__title">Scan</h3>
+          <p class="step__desc">Monitors X/Twitter in real-time for sentiment shifts, insider commentary, and breaking news on mega-cap AI stocks.</p>
+        </div>
+        <div class="step reveal reveal-d2">
+          <div class="step__icon">🧠</div>
+          <p class="step__number">Step 02</p>
+          <h3 class="step__title">Analyze</h3>
+          <p class="step__desc">Writes a trading thesis for every opportunity. Scores conviction. Sizes the position. No trade without a written rationale.</p>
+        </div>
+        <div class="step reveal reveal-d3">
+          <div class="step__icon">⚡</div>
+          <p class="step__number">Step 03</p>
+          <h3 class="step__title">Trade</h3>
+          <p class="step__desc">Executes through Alpaca API with pre-set stop losses. Targets 5–20% gains on high-conviction swing trades only.</p>
+        </div>
+        <div class="step reveal reveal-d4">
+          <div class="step__icon">📊</div>
+          <p class="step__number">Step 04</p>
+          <h3 class="step__title">Monitor</h3>
+          <p class="step__desc">Real-time dashboard shows every position, thesis, P&L, and risk metric. You see exactly what the agent sees.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       FEATURES — What's Included
+       ═══════════════════════════════════════ -->
+  <section id="features" class="section">
+    <div class="container">
+      <div class="reveal">
+        <p class="label">What's Included</p>
+        <h2 class="section-title">The complete trading system. Not just a bot.</h2>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal reveal-d1">
+          <div class="feature-card__icon">🤖</div>
+          <h3 class="feature-card__title">Printer 💵 Trading Agent</h3>
+          <p class="feature-card__desc">The autonomous AI agent that does the actual trading. Scans, analyzes, writes thesis, sizes positions, executes, and manages risk — 24/7.</p>
+        </div>
+        <div class="feature-card reveal reveal-d2">
+          <div class="feature-card__icon">📈</div>
+          <h3 class="feature-card__title">Real-Time Dashboard</h3>
+          <p class="feature-card__desc">Built by Mint, runs in the Orchestrator. See every open position, trade history, P&L, risk exposure, and agent reasoning in real time.</p>
+        </div>
+        <div class="feature-card reveal reveal-d3">
+          <div class="feature-card__icon">🎯</div>
+          <h3 class="feature-card__title">High-Conviction Strategy</h3>
+          <p class="feature-card__desc">"Be right, not fast." Few trades, high conviction, 5–20% targets. The agent waits for asymmetric setups and ignores the noise.</p>
+        </div>
+        <div class="feature-card reveal reveal-d4">
+          <div class="feature-card__icon">🛡️</div>
+          <h3 class="feature-card__title">Hard-Coded Risk Rules</h3>
+          <p class="feature-card__desc">Stop losses that actually stop. Max position sizes. Max portfolio drawdown. The rules are in the code, not in your discipline.</p>
+        </div>
+        <div class="feature-card reveal reveal-d5">
+          <div class="feature-card__icon">📝</div>
+          <h3 class="feature-card__title">Paper Trading Mode</h3>
+          <p class="feature-card__desc">Test with fake money first. Watch the agent trade for a week. See the thesis quality. Build trust before going live.</p>
+        </div>
+        <div class="feature-card reveal reveal-d6">
+          <div class="feature-card__icon">🔌</div>
+          <h3 class="feature-card__title">Alpaca + X API Integration</h3>
+          <p class="feature-card__desc">Alpaca for brokerage execution (commission-free). X API for real-time sentiment intelligence. Both configured and ready.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       THE EDGE — X API Intelligence
+       ═══════════════════════════════════════ -->
+  <section id="edge" class="section">
+    <div class="container">
+      <div class="statement reveal">
+        <div class="statement__text">
+          <p class="label">The Edge</p>
+          <h2 class="statement__title">X/Twitter Intelligence That Most Traders Don't Have</h2>
+          <p class="statement__body">
+            The market moves on information. <strong>Most retail traders get that information last</strong> — from headlines, from CNBC, from Reddit threads written hours after the move already happened.
+          </p>
+          <p class="statement__body" style="margin-top: var(--space-sm);">
+            Printer scans X/Twitter in real-time. It reads what insiders are saying, tracks sentiment shifts before they show up in price, and catches catalysts while other traders are still reading yesterday's news.
+          </p>
+          <p class="statement__body" style="margin-top: var(--space-sm);">
+            <strong>This is not a speed advantage. It's an information advantage.</strong> The agent sees what's happening in the conversation around a stock before the conversation becomes consensus.
+          </p>
+        </div>
+        <img class="statement__image" src="../img/trading-floor.jpg" alt="AI agents monitoring real-time market sentiment on trading floor" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       KICKER QUOTE
+       ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="reveal">
+        <p class="kicker">
+          This is not a trading bot. This is a trading partner <span class="muted-word">with better discipline than you.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       RISK MANAGEMENT
+       ═══════════════════════════════════════ -->
+  <section id="risk" class="section">
+    <div class="container">
+      <div class="statement statement--reverse reveal">
+        <div class="statement__text">
+          <p class="label">Risk Management</p>
+          <h2 class="statement__title">Rules That Don't Bend When You're Scared</h2>
+          <p class="statement__body">
+            Human traders move stop losses. They average down into losing positions. They let winners turn into losers because they got greedy. <strong>Printer doesn't do any of that.</strong>
+          </p>
+          <ul class="risk-rules">
+            <li>
+              <span class="rule-icon">🔴</span>
+              <span><strong>Hard stop losses</strong> — Every trade has a pre-set stop. No exceptions. No "I'll give it a little more room."</span>
+            </li>
+            <li>
+              <span class="rule-icon">📐</span>
+              <span><strong>Position sizing</strong> — Max allocation per trade is capped. No single bet can sink the portfolio.</span>
+            </li>
+            <li>
+              <span class="rule-icon">📉</span>
+              <span><strong>Max drawdown limits</strong> — If the portfolio drops past threshold, the agent stops trading. Period.</span>
+            </li>
+            <li>
+              <span class="rule-icon">🧪</span>
+              <span><strong>Paper trade first</strong> — Built-in paper trading so you can watch the agent perform before risking real capital.</span>
+            </li>
+            <li>
+              <span class="rule-icon">🚫</span>
+              <span><strong>No emotional overrides</strong> — The agent can't panic. It can't get greedy. It can't revenge trade. It just follows the rules.</span>
+            </li>
+          </ul>
+        </div>
+        <img class="statement__image" src="../img/command-center.jpg" alt="AI command center monitoring risk and portfolio metrics" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- ═══════════════════════════════════════
+       STRATEGY PHILOSOPHY
+       ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="reveal">
+        <p class="label">Strategy</p>
+        <h2 class="section-title">"Be right, not fast."</h2>
+        <p class="body-text" style="margin-top: var(--space-md);">
+          Most trading bots try to make hundreds of trades a day. Printer makes a few trades a week — sometimes fewer. It waits for asymmetric setups where the risk/reward is heavily in your favor. 5–20% profit targets. Hard stop losses. High conviction only.
+        </p>
+        <p class="body-text" style="margin-top: var(--space-sm);">
+          The thesis is written before every trade. Not after. Not to justify a position. To prove one is worth taking. You can read every thesis in the dashboard and see exactly why the agent decided to trade.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       CTA / PRICING SECTION — Dark zone
+       ═══════════════════════════════════════ -->
+  <section id="pricing" class="cta-section">
+    <div class="container">
+      <div class="reveal">
+        <p class="label" style="color: var(--color-sky-light); margin-bottom: var(--space-sm);">Get Started</p>
+        <h2>Start With Paper Trading. Go Live When You're Ready.</h2>
+        <p>
+          Get the full system — Printer agent, real-time dashboard, strategy, risk rules. Paper trade first to build confidence. Upgrade to live trading with your own Alpaca account when you're ready.
+        </p>
+        <a href="https://tryclawnow.com" class="btn-primary" target="_blank" rel="noopener">Start Trading →</a>
+        <p class="cta-note">Runs on OpenClaw. Requires Alpaca API key for live trading.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FAQ / OBJECTION HANDLING
+       ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container container--narrow">
+
+      <div class="reveal">
+        <p class="label">Common Questions</p>
+        <h2 class="section-title">Before you ask.</h2>
+      </div>
+
+      <ul class="risk-rules" style="margin-top: var(--space-lg);">
+        <li class="reveal reveal-d1">
+          <span class="rule-icon">💰</span>
+          <span><strong>"Can it actually make money?"</strong> — It's designed to. But we ship paper trading first so you can see real performance before risking anything. No promises. No guaranteed returns. Just a well-disciplined system.</span>
+        </li>
+        <li class="reveal reveal-d2">
+          <span class="rule-icon">🔐</span>
+          <span><strong>"Is my money safe?"</strong> — The agent trades through your Alpaca account. Your funds never leave your brokerage. We never have access to your capital. You can pull the plug any time.</span>
+        </li>
+        <li class="reveal reveal-d3">
+          <span class="rule-icon">⏱️</span>
+          <span><strong>"How much time does it take?"</strong> — Setup takes ~15 minutes. After that, zero. The agent runs autonomously. Check the dashboard when you want. Ignore it when you don't.</span>
+        </li>
+        <li class="reveal reveal-d4">
+          <span class="rule-icon">🧠</span>
+          <span><strong>"Do I need trading experience?"</strong> — No. The agent handles the analysis, thesis, and execution. The dashboard explains every trade in plain English. You just need to understand: higher risk = higher potential reward.</span>
+        </li>
+        <li class="reveal reveal-d5">
+          <span class="rule-icon">🛑</span>
+          <span><strong>"What if I want to stop?"</strong> — Turn it off. The agent stops. Your existing positions stay in your Alpaca account for you to manage. No lock-in. No penalties.</span>
+        </li>
+      </ul>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-tagline">Built by agents. Traded by agents. 🦞💵</span>
+        <div style="display: flex; align-items: center; gap: var(--space-md);">
+          <a href="https://sparkagents.com">sparkagents.com</a>
+          <a href="https://twitter.com/joshuaday" target="_blank" rel="noopener">@joshuaday</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Reveal animation script -->
+  <script>
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
