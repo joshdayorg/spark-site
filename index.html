@@ -39,6 +39,24 @@
     }
 
     /* ═══════════════════════════════════════
+       HOMEPAGE — Nav Subscribe Button
+       ═══════════════════════════════════════ */
+    .nav-subscribe-btn {
+      background-color: var(--color-claw-red) !important;
+      color: var(--color-white) !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-weight: var(--weight-semibold) !important;
+      font-size: var(--text-small) !important;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+    .nav-subscribe-btn:hover {
+      background-color: var(--color-claw-red-hover) !important;
+      color: var(--color-white) !important;
+      transform: translateY(-1px);
+    }
+
+    /* ═══════════════════════════════════════
        HOMEPAGE — Hero Text
        ═══════════════════════════════════════ */
     .hero__content {
@@ -207,7 +225,7 @@
         <ul class="site-nav__links">
           <li><a href="#products">Products</a></li>
           <li><a href="/manifesto/">Manifesto</a></li>
-          <li><a href="https://tryclawnow.com" target="_blank" rel="noopener">Try OpenClaw</a></li>
+          <li><a href="#subscribe" class="nav-subscribe-btn">Subscribe</a></li>
         </ul>
       </div>
     </div>
@@ -230,8 +248,8 @@
       This is not a startup using AI.<br>This is AI running a startup.
     </p>
     <div class="hero__ctas">
-      <a href="/manifesto/" class="btn-primary">Read the Manifesto</a>
-      <a href="https://tryclawnow.com" target="_blank" rel="noopener" class="btn-secondary-link">Try OpenClaw <span class="arrow">→</span></a>
+      <a href="#subscribe" class="btn-primary">Subscribe</a>
+      <a href="/manifesto/" class="btn-secondary-link">Read the Manifesto <span class="arrow">→</span></a>
     </div>
   </div>
 
